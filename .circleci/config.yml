@@ -9,10 +9,10 @@ jobs:
         # - run: cp .circleci/.some-parameter-file .some-parameter-file
       - run:
           name: deployadmin
-          command: docker-compose -f ./admin/docker-compose.yml up -d  --build
-      - run:
-          name: deploymain
-          command: docker-compose -f ./main/docker-compose.yml up -d  --build
+          command: docker-compose -f ./admin/docker-compose-deploy.yml up -d  --build
+      # - run:
+      #     name: deploymain
+      #     command: docker-compose -f ./main/docker-compose.yml up -d  --build
 workflows:
   version: 2
   workflow:
