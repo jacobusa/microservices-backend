@@ -1,21 +1,20 @@
-version: 2.1
-
-orbs:
-  python: circleci/python@0.2.1
-
+version: 2 # CircleCI version
 jobs:
-  build-and-test:
-    executor: python/default
+  build:
+    machine: true # Use a Linux VM instead of docker environment
+    working_directory: ~/microservice-web-app # Default working directory, where your project will be cloned
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
+        # Maybe you need to add some config file specific to circle…
+        # - run: cp .circleci/.some-parameter-file .some-parameter-file
       - run:
-          command: ./manage.py test
-          name: Test
-
+          name: deployadmin
+          command: docker-compose up -d -f ./admin/docker-compose.yml --build
+      - run:
+          name: deploymain
+          command: docker-compose up -d -f ./main/docker-compose.yml --build
 workflows:
-  main:
+  version: 2
+  workflow:
     jobs:
-      - build-and-test
+      - build
