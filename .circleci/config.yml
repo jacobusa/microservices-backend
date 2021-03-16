@@ -8,6 +8,12 @@ jobs:
         # Maybe you need to add some config file specific to circle…
         # - run: cp .circleci/.some-parameter-file .some-parameter-file
       - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.25.3/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - run:
           name: deployadmin
           command: docker-compose -f ./admin/docker-compose-deploy.yml up -d  --build
       - run:
