@@ -56,8 +56,6 @@ services:
       - MYSQL_USER=$MAIN_MYSQL_USER
       - MYSQL_PASSWORD=$MAIN_MYSQL_PASSWORD
       - SQLALCHEMY_DATABASE_URI=$MAIN_SQLALCHEMY_DATABASE_URI
-    env_file:
-      - ./.env
     volumes:
       - .dbdata:/var/lib/mysql
     ports:
