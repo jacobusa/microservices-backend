@@ -1,61 +1,62 @@
 version: "3.2"
 services:
-  backend:
+  admin-backend:
     build:
       context: .
       dockerfile: Dockerfile
     restart: always
     environment:
-      - DEBUG=$DEBUG
-      - AMQPS=$AMQPS
-      - ALLOWED_HOSTS=$ALLOWED_HOSTS
-      - SECRET_KEY=$SECRET_KEY
+      - DEBUG=$ADMIN_DEBUG
+      - AMQPS=$ADMIN_AMQPS
+      - ALLOWED_HOSTS=$ADMIN_ALLOWED_HOSTS
+      - SECRET_KEY=$ADMIN_SECRET_KEY
     # command: "python manage.py runserver 0.0.0.0:8000"
-    ports:
-      - 8000:8000
+    # command: "uwsgi --socket :8000 --master  --enable-threads --module admin.wsgi"
+    # ports:
+    #   - 8000:8000
     volumes:
       - .:/app
     depends_on:
-      - db
+      - admin-db
         # condition: service_healthy
-  queue:
+  admin-queue:
     build:
       context: .
       dockerfile: Dockerfile
     restart: always
     environment:
-      - DEBUG=$DEBUG
-      - AMQPS=$AMQPS
-      - ALLOWED_HOSTS=$ALLOWED_HOSTS
-      - SECRET_KEY=$SECRET_KEY
+      - DEBUG=$ADMIN_DEBUG
+      - AMQPS=$ADMIN_AMQPS
+      - ALLOWED_HOSTS=$ADMIN_ALLOWED_HOSTS
+      - SECRET_KEY=$ADMIN_SECRET_KEY
     command: "python consumer.py"
     depends_on:
-      - db
-  proxy:
+      - admin-db
+  admin-proxy:
     build:
       context: ./nginx
     ports:
-      - "8090:80"
+      - "8080:80"
     depends_on:
-      - backend
-  db:
+      - admin-backend
+  admin-db:
     image: mysql:5.7.22
     restart: always
     volumes:
       - .dbdata:/var/lib/mysql
     ports:
-      - 3306:3306
+      - 3308:3306
     environment:
-      - MYSQL_DATABASE=$MYSQL_DATABASE
-      - MYSQL_USER=$MYSQL_USER
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_DATABASE=$ADMIN_MYSQL_DATABASE
+      - MYSQL_USER=$ADMIN_MYSQL_USER
+      - MYSQL_PASSWORD=$ADMIN_MYSQL_PASSWORD
     # healthcheck:
     #   test: '/usr/bin/mysql --user=$MYSQL_USER --password=$MYSQL_PASSWORD --execute "SHOW DATABASES";'
     #   interval: 2s
     #   timeout: 30s
     #   retries: 15
-    logging:
-      driver: "none"
+    # logging:
+    #   driver: "none"
 
   # phpmyadmin:
   #   image: phpmyadmin
@@ -66,3 +67,6 @@ services:
   #     PMA_HOST: db
   #   logging:
   #     driver: "none"
+networks:
+  default:
+    name: micro-network

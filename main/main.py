@@ -1,4 +1,4 @@
-import requests
+import requests, os
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import UniqueConstraint
@@ -7,7 +7,9 @@ from dataclasses import dataclass
 from producer import publish
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:root@db/main"
+database_uri = os.environ.get("SQLALCHEMY_DATABASE_URI")
+app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
+app.config["DEBUG"] = os.environ.get("DEBUG")
 CORS(app)
 
 db = SQLAlchemy(app)
@@ -39,8 +41,11 @@ def index():
 
 @app.route("/api/products/<int:id>/like", methods=["POST"])
 def like(id):
-    req = requests.get("http://172.17.0.1:8000/api/user")
+    req = requests.get("http://admin-proxy/api/user")
     json = req.json()
+    print('entering like with')
+    print(req)
+    print(json)
 
     try:
         productUser = ProductUser(user_id=json["id"], product_id=id)
@@ -49,9 +54,12 @@ def like(id):
 
         publish("product_liked", id)
     except:
+        print('failed with: ', productUser)
         abort(400, "You already liked this product")
     return jsonify([{"message": "success"}, {"mimetype": "application/json"}])
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    # app.run(debug=True , host="0.0.0.0")
+    # app.run(host="0.0.0.0")
+    app.run()

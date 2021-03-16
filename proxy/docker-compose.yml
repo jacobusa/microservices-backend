@@ -1,0 +1,15 @@
+version: "3.2"
+services:
+  reverse-proxy: # The FruitPicker reverse proxy
+    image: nginx
+    volumes:
+      - ./proxy-conf/default.conf:/etc/nginx/conf.d/default.conf
+      # - ./proxy-conf/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8020:80"
+      # - "443:443"
+volumes:
+  proxy-conf:
+networks:
+  default:
+    name: micro-network
