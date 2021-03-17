@@ -17,7 +17,7 @@ services:
       - 443:443
   certbot:
     image: certbot/certbot:latest
-    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email kobusab4@gmail.com --agree-tos --no-eff-email -d api.demoapp54321.xyz
+    command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email kobusab4@gmail.com --agree-tos --no-eff-email -d api.microservices-demoapp54321.xyz
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
