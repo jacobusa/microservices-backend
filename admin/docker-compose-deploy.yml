@@ -10,6 +10,9 @@ services:
       - AMQPS=$ADMIN_AMQPS
       - ALLOWED_HOSTS=$ADMIN_ALLOWED_HOSTS
       - SECRET_KEY=$ADMIN_SECRET_KEY
+      - MYSQL_DATABASE=$ADMIN_MYSQL_DATABASE
+      - MYSQL_USER=$ADMIN_MYSQL_USER
+      - MYSQL_PASSWORD=$ADMIN_MYSQL_PASSWORD
     # command: "python manage.py runserver 0.0.0.0:8000"
     # command: "uwsgi --socket :8000 --master  --enable-threads --module admin.wsgi"
     # ports:
@@ -29,6 +32,9 @@ services:
       - AMQPS=$ADMIN_AMQPS
       - ALLOWED_HOSTS=$ADMIN_ALLOWED_HOSTS
       - SECRET_KEY=$ADMIN_SECRET_KEY
+      - MYSQL_DATABASE=$ADMIN_MYSQL_DATABASE
+      - MYSQL_USER=$ADMIN_MYSQL_USER
+      - MYSQL_PASSWORD=$ADMIN_MYSQL_PASSWORD
     command: "python consumer.py"
     depends_on:
       - admin-db

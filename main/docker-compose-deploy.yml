@@ -10,6 +10,10 @@ services:
       - AMQPS=$MAIN_AMQPS
       - FLASK_ENV=production
       - FLASK_APP=main.py
+      - MYSQL_DATABASE=$MAIN_MYSQL_DATABASE
+      - MYSQL_USER=$MAIN_MYSQL_USER
+      - MYSQL_PASSWORD=$MAIN_MYSQL_PASSWORD
+      - SQLALCHEMY_DATABASE_URI=$MAIN_SQLALCHEMY_DATABASE_URI
     # environment:
     #   - AMQPS=${AMQPS}
     # command: "python main.py"
@@ -42,6 +46,10 @@ services:
       - AMQPS=$MAIN_AMQPS
       - FLASK_ENV=production
       - FLASK_APP=main.py
+      - MYSQL_DATABASE=$MAIN_MYSQL_DATABASE
+      - MYSQL_USER=$MAIN_MYSQL_USER
+      - MYSQL_PASSWORD=$MAIN_MYSQL_PASSWORD
+      - SQLALCHEMY_DATABASE_URI=$MAIN_SQLALCHEMY_DATABASE_URI
     # environment:
     #   - AMQPS=${AMQPS}
     command: "python consumer.py"
