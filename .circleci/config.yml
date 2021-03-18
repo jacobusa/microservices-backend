@@ -43,16 +43,16 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy.sh"
+      # - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy.sh"
       - run:
           name: deployadmin
           command: docker-compose -f ./admin/docker-compose-deploy.yml up -d  --build
       - run:
           name: deploymain
           command: docker-compose -f ./main/docker-compose-deploy.yml up -d  --build
-      - run:
-          name: deployproxy
-          command: docker-compose -f ./proxy/docker-compose-deploy.yml up -d  --build
+      # - run:
+      #     name: deployproxy
+      #     command: docker-compose -f ./proxy/docker-compose-deploy.yml up -d  --build
 
 # Orchestrate our job run sequence
 workflows:
