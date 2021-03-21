@@ -10,15 +10,15 @@ jobs:
       - checkout
         # Maybe you need to add some config file specific to circle…
         # - run: cp .circleci/.some-parameter-file .some-parameter-file
-       - run:
-           name: Setup
-           command: |
-             chmod 755 ./deploy.sh
-             ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
+      - run:
+          name: Setup
+          command: |
+            chmod 755 ./deploy.sh
+            ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
       # - run: |
       #     ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "git clone git@github.com:jacobusa/microservices-backend.git"
       #     cd microservices-backend
- 
+
       # - run:
       #     name: Install Docker Compose
       #     command: |
@@ -32,8 +32,8 @@ jobs:
       #     name: deploymain
       #     command: docker-compose -f ./main/docker-compose-deploy.yml up -d  --build
       - run:
-         name: deploy
-         command: ./.circleci/deploy.sh
+          name: deploy
+          command: ./.circleci/deploy.sh
       # - run:
       #     name: deployproxy
       #     command: docker-compose -f ./proxy/docker-compose-deploy.yml up -d  --build
