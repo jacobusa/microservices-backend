@@ -4,29 +4,33 @@ jobs:
     machine: true # Use a Linux VM instead of docker environment
     working_directory: ~/microservices # Default working directory, where your project will be cloned
     steps:
-      # - add_ssh_keys:
-      #     fingerprints:
-      #       - ""
+       - add_ssh_keys:
+           fingerprints:
+             - "7a:ac:ff:db:ef:54:45:c5:3f:5f:3f:84:2f:0d:90:79"
       - checkout
         # Maybe you need to add some config file specific to circle…
         # - run: cp .circleci/.some-parameter-file .some-parameter-file
+      #  - run:
+      #      name: Setup
+      #      command: |
+      #        chmod 755 ./deploy.sh
+            #  ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
+       - run: ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "./deploy.sh"
       # - run:
-      #     name: Setup
+      #     name: Install Docker Compose
       #     command: |
-      #       chmod 755 .circleci/deploy.sh
-      #       ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            sudo mv ~/docker-compose /usr/local/bin/docker-compose
-      - run:
-          name: deployadmin
-          command: docker-compose -f ./admin/docker-compose-deploy.yml up -d  --build
-      - run:
-          name: deploymain
-          command: docker-compose -f ./main/docker-compose-deploy.yml up -d  --build
+      #       curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+      #       chmod +x ~/docker-compose
+      #       sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      # - run:
+      #     name: deployadmin
+      #     command: docker-compose -f ./admin/docker-compose-deploy.yml up -d  --build
+      # - run:
+      #     name: deploymain
+      #     command: docker-compose -f ./main/docker-compose-deploy.yml up -d  --build
+      # - run:
+      #    name: deploy
+      #    command: ./.circleci/deploy.sh
       # - run:
       #     name: deployproxy
       #     command: docker-compose -f ./proxy/docker-compose-deploy.yml up -d  --build
