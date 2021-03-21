@@ -15,7 +15,7 @@ jobs:
       #      command: |
       #        chmod 755 ./deploy.sh
       #  ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
-      - run: ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "echo madeithere"
+      - run: ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP ".circleci/deploy.sh"
       # - run:
       #     name: Install Docker Compose
       #     command: |
