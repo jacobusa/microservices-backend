@@ -12,9 +12,7 @@ jobs:
         # - run: cp .circleci/.some-parameter-file .some-parameter-file
       - run:
           name: Setup
-          command: |
-            chmod 755 ./deploy.sh
-            ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
+          command: ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
       # - run: |
       #     ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "git clone git@github.com:jacobusa/microservices-backend.git"
       #     cd microservices-backend
