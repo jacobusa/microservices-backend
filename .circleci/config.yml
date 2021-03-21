@@ -4,9 +4,9 @@ jobs:
     machine: true # Use a Linux VM instead of docker environment
     working_directory: ~/microservices # Default working directory, where your project will be cloned
     steps:
-       - add_ssh_keys:
-           fingerprints:
-             - "7a:ac:ff:db:ef:54:45:c5:3f:5f:3f:84:2f:0d:90:79"
+      - add_ssh_keys:
+          fingerprints:
+            - "7a:ac:ff:db:ef:54:45:c5:3f:5f:3f:84:2f:0d:90:79"
       - checkout
         # Maybe you need to add some config file specific to circle…
         # - run: cp .circleci/.some-parameter-file .some-parameter-file
@@ -14,8 +14,8 @@ jobs:
       #      name: Setup
       #      command: |
       #        chmod 755 ./deploy.sh
-            #  ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
-       - run: ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "./deploy.sh"
+      #  ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
+      - run: ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "./deploy.sh"
       # - run:
       #     name: Install Docker Compose
       #     command: |
