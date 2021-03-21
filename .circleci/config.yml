@@ -10,7 +10,7 @@ jobs:
       - checkout
 
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "./deploy.sh"
-#just to add else
+#just to add else 2
 # - run:
 #     name: Install Docker Compose
 #     command: |
