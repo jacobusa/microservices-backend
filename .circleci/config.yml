@@ -8,14 +8,8 @@ jobs:
           fingerprints:
             - "7a:ac:ff:db:ef:54:45:c5:3f:5f:3f:84:2f:0d:90:79"
       - checkout
-        # Maybe you need to add some config file specific to circle…
-        # - run: cp .circleci/.some-parameter-file .some-parameter-file
-      - run:
-          name: Setup
-          command: ssh-keyscan $MICROIP >> ~/.ssh/known_hosts
-      # - run: |
-      #     ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "git clone git@github.com:jacobusa/microservices-backend.git"
-      #     cd microservices-backend
+
+      - run: ssh -oStrictHostKeyChecking=no -v $USER@$MICROIP "./deploy.sh"
 
       # - run:
       #     name: Install Docker Compose
@@ -29,12 +23,6 @@ jobs:
       # - run:
       #     name: deploymain
       #     command: docker-compose -f ./main/docker-compose-deploy.yml up -d  --build
-      - run:
-          name: deploy
-          command: ./.circleci/deploy.sh
-      # - run:
-      #     name: deployproxy
-      #     command: docker-compose -f ./proxy/docker-compose-deploy.yml up -d  --build
 workflows:
   version: 2
   workflow:
