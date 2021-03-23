@@ -12,9 +12,9 @@ channel = connection.channel()
 
 def publish(method, body):
     properties = pika.BasicProperties(method)
-    print(method.values)
-    print(body.values)
-    print(properties.values)
+    print(method)
+    print(body)
+    print(properties)
     channel.basic_publish(
         exchange="", routing_key="admin", body=json.dumps(body), properties=properties
     )

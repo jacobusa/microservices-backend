@@ -54,10 +54,9 @@ def like(id):
         print('added session')
         db.session.commit()
         print('committed')
-
         publish("product_liked", id)
     except Exception as e:
-        print(e)
+        print("exception raised: ", e)
         abort(400, "You already liked this product")
     return jsonify([{"message": "success"}, {"mimetype": "application/json"}])
 
