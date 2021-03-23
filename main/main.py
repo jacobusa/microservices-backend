@@ -49,8 +49,11 @@ def like(id):
 
     try:
         productUser = ProductUser(user_id=json["id"], product_id=id)
+        print('fetched productuser', productUser)
         db.session.add(productUser)
+        print('added session')
         db.session.commit()
+        print('committed')
 
         publish("product_liked", id)
     except:
