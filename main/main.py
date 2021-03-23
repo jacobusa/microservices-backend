@@ -56,8 +56,8 @@ def like(id):
         print('committed')
 
         publish("product_liked", id)
-    except:
-        print('failed with: ', productUser)
+    except Exception as e:
+        print(e)
         abort(400, "You already liked this product")
     return jsonify([{"message": "success"}, {"mimetype": "application/json"}])
 
