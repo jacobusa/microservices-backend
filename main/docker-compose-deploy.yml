@@ -68,7 +68,7 @@ services:
       - .dbdata:/var/lib/mysql
     ports:
       - 3309:3306
-    user: circleci:circleci
+    user: $USER:$GROUP
     # healthcheck:
     #   test: '/usr/bin/mysql --user=root --password=root --execute "SHOW DATABASES;"'
     #   interval: 2s
