@@ -56,7 +56,7 @@ services:
       - MYSQL_DATABASE=$ADMIN_MYSQL_DATABASE
       - MYSQL_USER=$ADMIN_MYSQL_USER
       - MYSQL_PASSWORD=$ADMIN_MYSQL_PASSWORD
-    user: circleci:circleci
+    user: $(id -u):$(id -g)
     # healthcheck:
     #   test: '/usr/bin/mysql --user=$MYSQL_USER --password=$MYSQL_PASSWORD --execute "SHOW DATABASES";'
     #   interval: 2s
