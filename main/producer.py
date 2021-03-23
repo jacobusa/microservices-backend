@@ -11,9 +11,10 @@ channel = connection.channel()
 
 
 def publish(method, body):
-    amqps = os.environ.get("AMQPS")
-    params = pika.URLParameters(amqps)
-    connection = pika.BlockingConnection(params)
+    if not connection or connection.is_closed:
+        amqps = os.environ.get("AMQPS")
+        params = pika.URLParameters(amqps)
+        connection = pika.BlockingConnection(params)
     properties = pika.BasicProperties(method)
     print(method)
     print(body)
