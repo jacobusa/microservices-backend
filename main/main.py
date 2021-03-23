@@ -1,10 +1,9 @@
-import requests, os
+import requests, os, producer
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import UniqueConstraint
 from flask import Flask, jsonify, abort
 from dataclasses import dataclass
-from producer import publish
 
 app = Flask(__name__)
 database_uri = os.environ.get("SQLALCHEMY_DATABASE_URI")
@@ -54,7 +53,7 @@ def like(id):
         print('added session')
         db.session.commit()
         print('committed')
-        publish("product_liked", id)
+        producer.publish("product_liked", id)
     except Exception as e:
         print("exception raised: ", e)
         abort(400, "You already liked this product")
