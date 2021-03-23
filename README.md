@@ -27,7 +27,7 @@ Create .env files in /admin/.env and /main/.env
 ADMIN ENV
 
 > cd admin
-> vim admin.env
+> vim .env
 
 Add the following variables:
 
@@ -42,7 +42,7 @@ Add the following variables:
 MAIN ENV
 
 > cd main
-> vim main.env
+> vim .env
 
 Add the following variables:
 
@@ -66,9 +66,9 @@ Check installation by running following command in terminal:
 Admin App Container:
 
 > cd admin/
-> docker-compose up --build
+> docker-compose up -d --build
 
 Main App Container
 
 > cd main/
-> docker-compose up --build
+> docker-compose up -d --build
