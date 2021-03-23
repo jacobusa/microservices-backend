@@ -14,12 +14,6 @@ channel.queue_declare(queue="main")
 
 
 def callback(ch, method, properties, body):
-    if not connection or connection.is_closed:
-        connection = pika.BlockingConnection(params)
-        channel = connection.channel()
-        channel.queue_declare(queue="main")
-        channel.basic_consume(queue="main", on_message_callback=callback, auto_ack=True)
-
     print("Recieved in main")
     data = json.loads(body)
     print(data)
